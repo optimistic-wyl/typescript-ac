@@ -8,19 +8,22 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var http = __importStar(require("http"));
-var fs = __importStar(require("fs"));
+//import jQuery from 'jquery'
 var str = '1';
 var str2 = str; //str、str2 是 string 类型
 console.log(typeof (str2));
 console.log(str2);
 console.log('test');
-jQuery("#foo");
+//jQuery("#foo");
 var r = /[a-z]/; // var r = /[a-z]/;
 var d = new Date(); // var d = new Date();
-var body = document.body; // var body = document.body;
+// let body: HTMLElement = document.body;  // var body = document.body;
 var server = http.createServer(function (req, res) {
     res.write("data.toString()");
+    res.end();
 });
-server.listen('3000');
-console.log(fs);
+server.listen('3000', function () {
+    console.log('---服务器已经启动，监听的端口号是3000');
+});
+//console.log(fs);
 //# sourceMappingURL=hello.js.map

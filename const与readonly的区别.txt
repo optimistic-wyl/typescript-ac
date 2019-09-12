@@ -1,0 +1,215 @@
+const与readonly定义的值都不能更改，但它们到底有哪些异同点呢？
+
+ 
+
+Const
+
+² Const是常量的意思，其定义的变量只能读取不能更改，且只能在定义时初始化，不能在构造函数与其它属性与方法中初始化
+
+public class ConstTest
+
+    {
+
+        /// <summary>
+
+        /// const定义的变量
+
+        /// </summary>
+
+        public const int SUM = 100;
+
+        public ConstTest()
+
+        {
+
+            //错误！const定义的变量不能在构造函数中初始化
+
+            SUM = 100;
+
+        }
+
+        public void method()
+
+        {
+
+            //错误！const定义的变量不能在方法中初始化
+
+            SUM = 100;
+
+        }
+
+    }
+
+ 
+
+² Const 定义的字段属于类访问，类似于静态变量，只能通过类名来访问
+
+//只能通过类名访问
+
+  Console.WriteLine(ConstTest.SUM);
+
+ 
+
+ConstTest t = new ConstTest();
+
+    //错误！无法通过实例对象访问
+
+Console.WriteLine(t.SUM);
+
+ 
+
+² Const 只能定义值类型与字串，若定义引用类型的变量，只能初始化为null
+
+/// <summary>
+
+        /// const定义的变量
+
+        /// </summary>
+
+        public const int SUM = 100;
+
+        public const string CHARACTER_STRING = "We are chinese!我们都是中国人！";
+
+        /// <summary>
+
+        /// const定义的引用类型只能初始化为null
+
+        /// </summary>
+
+        public const Object obj = null;
+
+        /// <summary>
+
+        /// 错误！const定义的引用类型只能初始化为null
+
+        /// </summary>
+
+        public const Person person = new Person();
+
+ 
+
+readonly
+
+readonly是只读的意思，其定义的变量在运行期间也只能读取不能更改，但与const有以下不同
+
+readonly分为实例只读变量与静态只读变量
+
+² 实例只读变量在定义时或者实例构造函数中初始化，通过对象访问
+
+public class ReadOnlyTest
+
+{
+
+        /// <summary>
+
+        /// 定义时初始化（实例只读变量）
+
+        /// </summary>
+
+        public readonly int sum = 0;
+
+        public ReadOnlyTest()
+
+        {
+
+            //实例只读变量在实例构造函数中初始化
+
+            sum = 100;
+
+        }
+
+}
+
+客户端访问形式
+
+ReadOnlyTest test = new ReadOnlyTest();
+
+Console.WriteLine(test.sum);
+
+² static readonly 静态只读变量可以在定义时或者静态构造函数中初始化，通过类名称访问
+
+public class ReadOnlyTest 
+
+{
+
+        /// <summary>
+
+        /// 定义时初始化（静态只读变量）
+
+        /// </summary>
+
+        public static readonly int static_sum = 0;
+
+        static ReadOnlyTest()
+
+        {
+
+            //静态只读变量在静态构造函数中初始化
+
+            static_sum = 99;
+
+        }
+
+ }
+
+客户端访问形式
+
+Console.WriteLine(ReadOnlyTest.static_sum);
+
+² 实例只读变量若要在构造函数中初始化，只能选择实例构造函数，静态只读变量若要在构造函数中初始化，只能选择静态构造函数
+
+    public class ReadOnlyTest
+
+    {
+
+        /// <summary>
+
+        /// 定义时初始化（实例只读变量）
+
+        /// </summary>
+
+        public readonly int sum = 0;
+
+        /// <summary>
+
+        /// 定义时初始化（静态只读变量）
+
+        /// </summary>
+
+        public static readonly int static_sum = 0;
+
+        public ReadOnlyTest()
+
+        {
+
+            //错误！静态只读变量只能在静态构造函数中初始化！
+
+            static_sum = 100;
+
+        }
+
+        static ReadOnlyTest()
+
+        {
+
+            //错误！实例只读变量只能在实例构造函数中初始化！
+
+            sum = 100;
+
+        }
+
+    }
+
+ 
+
+总结：
+
+const与readonly相同点：运行期间都只能读取不能更改
+
+const 与readonly不同点:
+
+1.       const定义时即初始化，运行期间无法再初始化；readonly除了在定义时可以初始化外，还能在运行期间的构造函数中初始化，实例只读变量只能在实例构造函数中初始化，静态只读变量只能在静态构造函数中初始化
+
+2.       const定义的变量只能通过类名称访问，而readonly会根据其是否定义为静态类型而分别通过对象与类名称访问
+
+3.       const只能定义值类型与字串，若定义引用类型则初始化值必须为null，而readonly无此限制，可以定义引用类型时初始化为null，在对应的构造函数中再重新初始化
