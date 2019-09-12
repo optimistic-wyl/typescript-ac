@@ -25,3 +25,32 @@ server.listen('3000',function(){
 
 //console.log(fs);
 
+const obj = {
+    a: 1,
+    b: 'string',
+};
+  
+obj.a = 1;
+
+interface Obj {
+    b?: string;
+    a?: number;
+    [propName: string]: any;
+}
+var obj1 : Obj = {
+    a: 1,
+    b: 'str'
+}
+
+obj1.c = 'opop';
+
+
+// 带有任意数量的其它属性：
+interface Foo {
+    [propName: string]: any;
+}
+let foo : Foo = {};
+  
+for (let i = 0; i< 100; i++) {
+    foo[String(i)] = i;
+}
