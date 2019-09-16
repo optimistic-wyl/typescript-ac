@@ -19,6 +19,7 @@
 //应用闭包的主要场合是：设计私有的方法和变量。
 
 //匿名函数最大的用途是创建闭包
+import jQuery from 'jquery'
 
 function outer(){
     var name = 'out'
@@ -36,3 +37,20 @@ function outer(){
 outer()
 
 console.log("dfdfdf")
+
+
+/************************* */
+class m1{
+    a = 'a';
+    b = 'b';
+}
+
+let m2 = {
+    c: 'c',
+    d: 'd'
+}
+
+// console.log(new jQuery())
+
+// let m3 = jQuery.extend(new m1(), m2);
+// console.log(m3.a,m3.c)

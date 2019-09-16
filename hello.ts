@@ -54,3 +54,7 @@ let foo : Foo = {};
 for (let i = 0; i< 100; i++) {
     foo[String(i)] = i;
 }
+
+
+
+
