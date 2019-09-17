@@ -55,6 +55,38 @@ for (let i = 0; i< 100; i++) {
     foo[String(i)] = i;
 }
 
+class Student {
+    fullName: string;
+    constructor(public firstName: string, public middleInitial: string, public lastName: string) {
+        this.fullName = firstName + " " + middleInitial + " " + lastName;
+    }
+}
+
+interface Person {
+    firstName: string;
+    lastName: string;
+}
+
+function greeter(person : Person) {
+    console.log( "Hello, " + person.firstName + " " + person.lastName);
+}
+
+let user: Student = new Student("Jane", "M.", "User");
+
+greeter(user);
+
+function warnUser(): void {
+    console.log("This is my warning message");
+}
+
+function warnUser2(): void {
+    console.log("This is my warning message");
+}
+
+function error(message: string): void {
+    throw new Error(message);
+}
+
 
 
 
