@@ -87,6 +87,59 @@ function error(message: string): void {
     throw new Error(message);
 }
 
+/******************************************* */
+interface LabelledValue {
+    label: string;
+}
+
+function printLabel(labelledObj: LabelledValue) {
+    console.log(labelledObj.label);
+}
+
+let myObj = {size: 10, label: "Size 10 Object"};
+printLabel(myObj);
+/******************************************* */
+
+interface SquareConfig {
+    color: string;
+}
+  
+function createSquare(config: SquareConfig): { color: string; area: number } {
+    let newSquare = {color: "white", area: 100};
+    if (config.color) {
+      // Error: Property 'clor' does not exist on type 'SquareConfig'
+      newSquare.color = config.color;
+    }
+    /* if (config.width) {
+      newSquare.area = config.width * config.width;
+    } */
+    return newSquare;
+}
+
+let paramObj = {size: 10,  color: "black"};
+
+let mySquare = createSquare(paramObj);
+
+
+/************************** */
+/* interface ClockConstructor {
+    new (hour: number, minute: number): any;
+}
+
+class Clock implements ClockConstructor {
+    //currentTime: Date;
+    constructor(h: number, m: number) { }
+} */
+
+
+/************************** */
+function abc(){
+
+}
+
+console.log(abc.constructor);
+
+
 
 
 
