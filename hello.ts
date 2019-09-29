@@ -1,8 +1,10 @@
 import * as http from 'http';
 import * as fs from 'fs';
 //import jQuery from 'jquery'
-var str = '1' 
-var str2:number = <number> <any> str   //str、str2 是 string 类型
+
+import _ from 'lodash';
+var str : string = '1' 
+var str2:number = <any> str   //str、str2 是 string 类型
 console.log(typeof(str2));
 console.log(str2)
 
@@ -13,7 +15,7 @@ console.log('test')
 let r: RegExp = /[a-z]/;                // var r = /[a-z]/;
 let d: Date = new Date();               // var d = new Date();
 // let body: HTMLElement = document.body;  // var body = document.body;
-
+//console.log(http)
 let server = http.createServer(function(req,res){
     res.write("data.toString()");
     res.end()
@@ -137,7 +139,141 @@ function abc(){
 
 }
 
-console.log(abc.constructor);
+//console.log(abc.constructor);
+
+/************************** */
+function getProperty<T, K extends keyof T>(obj: T, key: K) {
+    return obj[key];
+}
+/* function getProperty(obj:any, key:any) {
+    console.log(obj[key])
+    return obj[key];
+} */
+
+let x = { a: 1, b: 2, c: 3, d: 4 };
+
+getProperty(x, "a"); // okay
+//getProperty(x, "m");
+
+/************************** */
+enum E {
+    Foo,
+    Bar,
+}
+
+console.log('E.Foo:', E.Foo);
+
+function f(x: E) {
+    /* if (x !== E.Foo || x !== E.Bar) {
+        //             ~~~~~~~~~~~
+        // Error! Operator '!==' cannot be applied to types 'E.Foo' and 'E.Bar'.
+    } */
+}
+
+
+console.log('enum')
+declare enum Enum {
+    A = 1,
+    B,
+    C = 2
+}
+
+/* declare class Groeet {
+    constructor(greeting: string);
+
+    greeting: string;
+    showGreeting(): void;
+}
+
+var groeet = new Groeet('opo')
+
+groeet.showGreeting() */
+
+/*********************************** */
+
+  const a = _.includes([1, 2, 3], 1);
+  console.log(a);
+
+
+/**
+ * 如果编译器不能够去除 null或 undefined，你可以使用类型断言手动去除。 
+ * 语法是添加 !后缀： identifier!从 identifier的类型里去除了 null和 undefined：
+ * ********************************* */
+
+function fixed(name: string | null): string {
+    function postfix(epithet: string) {
+        return name!.charAt(0) + '.  the ' + epithet; // ok
+    }
+    name = name || "Bob";
+    return postfix("great");
+}
+
+console.log(fixed(null));
+
+
+/**
+ * 类型别名
+ */
+type Name = string;
+type NameResolver = () => string;
+type NameOrResolver = Name | NameResolver;
+function getName(n: NameOrResolver): Name {
+    if (typeof n === 'string') {
+        return n;
+    }
+    else {
+        return n();
+    }
+}
+
+/**
+ * 
+ */
+type Easing = "ease-in" | "ease-out" | "ease-in-out";
+class UIElement {
+    animate(dx: number, dy: number, easing: Easing) {
+        if (easing === "ease-in") {
+            // ...
+        }
+        else if (easing === "ease-out") {
+        }
+        else if (easing === "ease-in-out") {
+        }
+        else {
+            // error! should not pass null or undefined.
+        }
+    }
+}
+
+let button = new UIElement();
+button.animate(0, 0, "ease-in");
+// button.animate(0, 0, "uneasy"); // error: "uneasy" is not allowed here
+
+/**
+ * 
+ */
+
+const forInObj = {
+    a: 'a',
+    b: 'b',
+    [Symbol()]: 's'
+}
+
+const forInArr = [1,2,3]
+
+for (let x in forInObj){
+    console.log(x)
+}
+
+for (let x in forInArr){
+    console.log(x)
+}
+
+/** */
+type objClazz = {a:'a'}
+let oo : objClazz ;
+
+
 
 
 

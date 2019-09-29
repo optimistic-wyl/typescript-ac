@@ -54,3 +54,35 @@ let m2 = {
 
 // let m3 = jQuery.extend(new m1(), m2);
 // console.log(m3.a,m3.c)
+
+function Abc (){
+    this.a = 'a'
+}
+
+Abc.prototype = {
+    aa: function(){
+        console.log('a')
+    }
+}
+
+var abc = new Abc();
+for(let i in abc){
+    console.log('forIn:',i)
+}
+
+console.log(Object.keys(abc));
+
+console.log(Object.getOwnPropertyNames(abc))
+
+
+let acc = {
+    bb: 'bb',
+    cc: 'cc'
+}
+for(let i in acc){
+    console.log('forIn:',i)
+}
+
+console.log(Object.keys(acc));
+
+console.log(Object.getOwnPropertyNames(acc))
