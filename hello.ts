@@ -273,6 +273,76 @@ for (let x in forInArr){
 type objClazz = {a:'a'}
 let oo : objClazz ;
 
+function e() {
+    console.log("f(): evaluated");
+    return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+        console.log("f(): called");
+    }
+}
+
+function g() {
+    console.log("g(): evaluated");
+    return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+        console.log("g(): called");
+    }
+}
+
+class C {
+    @e()
+    @g()
+    method() {}
+}
+
+/**类装饰器返回一个值： 如果类装饰器返回一个值，它会使用提供的构造函数来替换类的声明。*/
+function classDecorator<T extends {new(...args:any[]):{}}>(constructor:T) {
+    return class extends constructor {
+        newProperty = "new property";
+        hello = "override";
+
+        /* constructor(...args:any[]){
+            super();
+            this.hello = args[0] + "ooooo"
+        } */
+    }
+}
+
+@classDecorator
+class Greeter {
+    property = "property";
+    hello: string = 'selfHello';
+    constructor(m: string) {
+        this.hello = m;
+    }
+}
+
+console.log(new Greeter("world"));
+
+/* class Greeter {
+    greeting: string;
+    constructor(message: string) {
+        this.greeting = message;
+    }
+
+    @enumerable(false)
+    greet() {
+        return "Hello, " + this.greeting;
+    }
+}
+
+function enumerable(value: boolean) {
+    return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+        console.log('target:',target)
+        console.log('propertyKey:',propertyKey)
+        console.log('descriptor:',descriptor)
+        descriptor.enumerable = value;
+    };
+} */
+
+/* var greeter1 = new Greeter('world');
+console.log(greeter1.greet()); */
+
+
+
 
 
 
